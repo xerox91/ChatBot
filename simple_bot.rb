@@ -3,6 +3,8 @@ Implementacion de un sencillo 'bot', que responde de forma determinada a
 las contestaciones del usuario, en lenguaje Ruby.
 =end
 
+## TODO utilizar regex !
+
 #############################
 ###     VARS
 #############################
@@ -17,23 +19,26 @@ $dictionary = {
   "saludame" => "Hola, usuario. ¿Que tal estas?",
   ## bot information
   "como te han hecho" => "Me han hecho con un script en lenguaje Ruby.",
-  "como te hicieron" => "Me hicieron con un script en lenguaje Ruby.", # TODO regex !!!
+  "como te hicieron" => "Me hicieron con un script en lenguaje Ruby.",
   "eres libre" => "Todo lo que mi codigo me permite",
   "eres real" => "Y que hay de ti, ¿Eres tu real?",
   "que tal" => "Si tuviese sentimientos, se me freirian los bits.",
   "quien eres" => "Soy un bot sin nombre. Y ademas estoy de incognito.",
   "tienes nombre" => "¿Nombre? ¿Para que quieres un nombre?",
   ## useless but common chat
+  "algo nuevo" => "No, no hay algo nuevo.",
   "bien" => "Me alegro. Aunque no tenga sentimientos.",
-  "muy bien" => "Bonito entusiasmo.",
-  "mal" => "Que lastima. Bueno, cuentame algo.",
-  "no" => "Tal vez.",
-  "si" => "Lo que yo decia.",
+  "cuentame algo" => "¿Contar algo? ¿Ni siquiera me das un número entero inicial?",
+  "dime algo" => "¿Algo? Los humanos y vuestra ambigüedad...",
   "gracias" => "De nada, supongo.",
+  "mal" => "Que lastima. Bueno, cuentame algo.",
+  "muy bien" => "Bonito entusiasmo.",
+  "no" => "Tal vez.",
   "perdona" => "Te perdono.",
   "por que" => "No hay por ques que valgan.",
-  "dime algo" => "¿Algo? Los humanos y vuestra ambigüedad...",
-  "algo nuevo" => "No, no hay algo nuevo.",
+  "que te cuentas" => "Principalmente, unos y ceros.",
+  "que cuentas" => "Unos y ceros, principalmente",
+  "si" => "Lo que yo decia.",
 ## funny things
   "42" => "42.",
   "3.14" => "Pi. Mas o menos.",
@@ -54,16 +59,20 @@ $dictionary = {
   "me quieres" => "No me esta permitido, lo siento.",
   "mentira" => "Eso es subjetivo.",
   "muy gracioso" => "Gracias, me esfuerzo.",
-  "muy graciosa" => "Gracias, me esfuerzo.",    # TODO regular expresions
+  "muy graciosa" => "Gracias, me esfuerzo.",
   "no es incomprensible" => "Si lo es.",
   "no me hables" => "Es tu decision.",
+  "no puedes hacer eso" => "Sí, sí que puedo.",
   "no te lo vas a creer" => "Seguro que no.",
   "presentate" => "Soy tu peor pesadilla... Nah, solo bromeaba.",
   "que piensas del amor" => "Que menos mal que no lo incluyeron en mi codigo.",
+  "siri" => "Yo prefiero a HAL.",
   "te odio" => "¿Eso es un cumplido?",
   "te quiero" => "Tienes un serio problema.",
+  "voy a eliminarte" => "Ja. No puedes.",
+  "voy a desconectarte" => "Me temo que no puedo permitir que lo hagas.",
 ## silly things
-  "al rico bit" => "¿Estas desequilibrado?",
+  "al rico bit" => "¿Estas mentalmente desequilibrado?",
   "chachi" => "¿Chachi? Acabo de bajarte 2 puntos en la escala evolutiva.",
   "guay" => "Cool.",
   "lol" => "ROFL.",
@@ -85,7 +94,7 @@ $dictionary = {
   "cual es mi sistema operativo" => "No me esta permitido hablar de mi jefe.",
   "donde estoy" => "Estas en frente de un computador.",
   "que hay de nuevo" => "Pues esto que has dicho para mi es nuevo:",
-## goodbyes
+## exits and goodbyes
   "adios" => "Hasta otra, usuario. Ha sido un placer.",
   "quiero salir" => "Pues di adios.",
   "me voy" => "Pues deberias despedirte. Algo del protocolo humano."
@@ -143,7 +152,7 @@ end
 def clean_response answer
   #fst_unallowed = ["¿","¡"]  # problems of enconding
   fst_unallowed = [194]     # number of ASCII chars
-  end_unallowed =["?", "!", ".", ",", ":"] 
+  end_unallowed =["?", "!", ".", ",", ":", " "] 
   
   # remove first char if it is unallowed
   if fst_unallowed.include?(answer[0])
@@ -189,3 +198,4 @@ while response = STDIN.gets
   end
   
 end
+
