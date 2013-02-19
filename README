@@ -4,12 +4,14 @@ Simple Bot
 Sergio Salomon Garcia, <sergio.salomon@alumnos.unican.es>
 
 
+Notice: soon there will be a better version with regular expressions.
+
 
 Español
 -----------
 
-Implementación de un sencillo 'bot', que responde de forma determinada a
-las contestaciones del usuario. Hecho en forma de script en lenguaje Ruby.
+Implementación de un sencillo 'bot', que responde de forma determinada al
+usuario. Hecho en forma de script en lenguaje Ruby.
 
 
 
