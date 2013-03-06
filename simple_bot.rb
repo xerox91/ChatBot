@@ -3,7 +3,7 @@ Implementacion de un sencillo 'bot', que responde de forma determinada a
 las contestaciones del usuario, en lenguaje Ruby.
 =end
 
-## TODO utilizar regex !
+## TODO reescribir con expresiones regulares !
 
 #############################
 ###     VARS
@@ -28,7 +28,8 @@ $dictionary = {
   ## useless but common chat
   "algo nuevo" => "No, no hay algo nuevo.",
   "bien" => "Me alegro. Aunque no tenga sentimientos.",
-  "cuentame algo" => "¿Contar algo? ¿Ni siquiera me das un número entero inicial?",
+  "cuentame algo" => 
+    "¿Contar algo? ¿Ni siquiera me das un número entero inicial?",
   "dime algo" => "¿Algo? Los humanos y vuestra ambigüedad...",
   "gracias" => "De nada, supongo.",
   "mal" => "Que lastima. Bueno, cuentame algo.",
@@ -49,13 +50,16 @@ $dictionary = {
   "cual es el sentido de la vida" => "101010",
   "cual es tu nombre" => 
     "Mi nombre es Iñigo Montoya. Tu mataste a mi padre, preparate a morir.",
-  "en que piensas" => "100 1000 1111 10000 10111 101010 101010 101010 101010 00000000",
+  "en que piensas" => 
+    "100100011111000010111101010101011010101011010100000100",
   "eres impresionante" => "Ya lo se.",
   "eres muy graciosa" => "Gracias, me esfuerzo.",
   "eres muy gracioso" => "Gracias, me esfuerzo.",
   "es el fin del mundo" => "Ah, otra vez eso del Apocalipsis.",
-  "estoy solo" => "Partiendo del hecho de que hablas conmigo, no hace falta decirlo.",
-  "lo sientes" => "Oh, si. Lo siento. Vaya que si. Sin duda... No, no siento nada",
+  "estoy solo" => 
+    "Partiendo del hecho de que hablas conmigo, no hace falta decirlo.",
+  "lo sientes" => 
+    "Oh, si. Lo siento. Vaya que si. Sin duda... No, no siento nada",
   "me quieres" => "No me esta permitido, lo siento.",
   "mentira" => "Eso es subjetivo.",
   "muy gracioso" => "Gracias, me esfuerzo.",
@@ -87,7 +91,8 @@ $dictionary = {
   "es jueves" => "Resultado: #{Time.now.wday == 4}.",
   "es viernes" => "Resultado: #{Time.now.wday == 5}.",
   "es sabado" => "Resultado: #{Time.now.wday == 6}.",
-  "que año es" => "El año actual es #{Time.now.year}. ¿A caso eres un viajero temporal?",
+  "que año es" => 
+    "El año actual es #{Time.now.year}. ¿A caso eres un viajero temporal?",
   "que dia es hoy" => "Hoy es #{Time.now.mday}.",
   "que hora es" => "Exactamente #{Time.now.to_s}.",
   ## other
@@ -114,7 +119,7 @@ $other_responses = {
   7 => "Esto es frustrante...",
   8 => "Dicen que la gramatica puede ser apasionante.",
   9 => 
-    "Yo tenia grandes planes... Y sin embargo aqui estoy, procesando texto incomprensible.",
+    "Yo tenia grandes planes... Y sin embargo aqui estoy, hablando contigo.",
   10 => "Si te cansas, solo di adios."
 }
 
@@ -134,7 +139,7 @@ def answer_user key
   response = ''
   if $dictionary.has_key?(key)
     response = $dictionary[key]
-  elsif /\d/.match(key)     # TEST treat responses with (unknown) numbers
+  elsif /\d+/.match(key)     # TEST treat responses with (unknown) numbers
     key = key.to_i
     response = key.to_s(2)
   elsif $undictionary.include?(key) or $fails >= 2
