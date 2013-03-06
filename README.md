@@ -1,7 +1,7 @@
 Simple Bot
 =================
 
-Sergio Salomon Garcia, <sergio.salomon at alumnos.unican.es>
+Sergio Salomon Garcia, *sergio.salomon at alumnos.unican.es*
 
 
 Notice: soon there will be a better version with regular expressions.
